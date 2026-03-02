@@ -1,11 +1,14 @@
 
 import './App.css'
+import MyMap from './components/MyMap'
+import SearchIpAddress from './components/SearchIpAddress'
 
 function App() {
 
   return (
     <>
-    hello world!
+    <SearchIpAddress/>
+   <MyMap/>
     </>
   )
 }
