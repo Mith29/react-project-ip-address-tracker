@@ -3,17 +3,31 @@
 import arrowIcon from "../assets/images/icon-arrow.svg"
  import bgImage from "../assets/images/pattern-bg-desktop.png";
 import useFetch from "../hooks/useFetch";
+import DisplayIpAddress from "./DisplayIpAddress";
+import MyMap from "./MyMap";
+
 function SearchIpAddress() {
 
     const [searchData,setSearchData] = useState("");
+    const [ipToSearch, setIpToSearch] = useState("");
+const key = import.meta.env.VITE_API_KEY;
+console.log("API KEY:", key);
+const { data, loading, error } = useFetch(
+    `https://geo.ipify.org/api/v2/country,city?apiKey=${key}${
+      ipToSearch ? `&ipAddress=${ipToSearch}` : ""
+    }`
+  );
+console.log(data);
 
 
-    function handleClick() {
-  const {data, loading, error}= useFetch ("")
-    }
-
+function handleSubmit(e) {
+  e.preventDefault();
+setIpToSearch(searchData);
+}
     return(
-        <div className="h-80 bg-cover "
+      <>
+        <form onSubmit={handleSubmit}
+        className="h-80 bg-cover z-0"
   style={{ backgroundImage: `url(${bgImage})` }}>
           <h1 className="text-3xl mb-4 text-center text-white ">IP Address Tracker</h1>
         <div className="flex justify-center mt-10">
@@ -28,12 +42,20 @@ function SearchIpAddress() {
         <button
           type="submit"
           className="bg-black hover:bg-gray-800 px-5 flex items-center justify-center rounded-r-lg"
-          onClick={handleClick}
+          
         >
           <img src={arrowIcon} alt="arrow icon" className="w-5 h-5" />
         </button>
       </div>
-        </div>
+        </form>
+        {/* Display IP Data */}
+      {loading && <p className="text-center mt-4">Loading...</p>}
+      {error && (
+        <p className="text-center mt-4 text-red-500">Error fetching IP data.</p>
+      )}
+      {data && <DisplayIpAddress data={data} />}
+      {data && <MyMap data={data} />}
+        </>
     )
 }
 

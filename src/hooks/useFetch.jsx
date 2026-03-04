@@ -7,7 +7,7 @@ function useFetch(url, options) {
  
   useEffect(() => {
     if (!url) return; // Don't fetch if URL is not provided
- 
+
     const controller = new AbortController(); // For cleanup
     setData(null); // Reset data on new fetch
     setError(null); // Reset error on new fetch
