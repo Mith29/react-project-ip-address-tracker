@@ -37,7 +37,7 @@ function SearchIpAddress() {
         className="h-80 bg-cover z-0"
         style={{ backgroundImage: `url(${bgImage})` }}
       >
-        <h1 className="text-3xl mb-4 text-center text-white ">
+        <h1 className="text-4xl  font-bold mb-4 text-center text-white pt-15 ">
           IP Address Tracker
         </h1>
         <div className="flex justify-center mt-10">

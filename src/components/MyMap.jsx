@@ -3,6 +3,7 @@ import L from "leaflet";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import marker from "../assets/images/icon-location.svg"
 
 // Fix default marker icon issue in React
 delete L.Icon.Default.prototype._getIconUrl;
@@ -10,6 +11,14 @@ L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x,
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
+});
+
+
+const customIcon = new L.Icon({
+  iconUrl: marker,
+  iconSize: [40, 50],
+  iconAnchor: [20, 40],
+  popupAnchor: [0, -40],
 });
 
 function MyMap({data}) {
@@ -25,7 +34,7 @@ function MyMap({data}) {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; OpenStreetMap contributors"
       />
-      <Marker position={[lat, lng]}></Marker>
+      <Marker position={[lat, lng]} icon={customIcon}></Marker>
     </MapContainer>
   );
 }
