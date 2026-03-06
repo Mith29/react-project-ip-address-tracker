@@ -1,66 +1,64 @@
 import { useState } from "react";
 import arrowIcon from "../assets/images/icon-arrow.svg";
-import bgImage from "../assets/images/pattern-bg-desktop.png";
-import useFetch from "../hooks/useFetch";
+import bgDesktop from "../assets/images/pattern-bg-desktop.png";
+import bgMobile from "../assets/images/pattern-bg-mobile.png";
 import DisplayIpAddress from "./DisplayIpAddress";
 import MyMap from "./MyMap";
 import useValidate from "../hooks/useValidate";
+import { useIpContext } from "../context/IpContext";
 
 function SearchIpAddress() {
   const [searchData, setSearchData] = useState("");
-  const [ipToSearch, setIpToSearch] = useState("");
   const [validationError, setValidationError] = useState("");
-
-  const key = import.meta.env.VITE_API_KEY;
-  const { data, loading, error } = useFetch(
-    `https://geo.ipify.org/api/v2/country,city?apiKey=${key}${
-      ipToSearch ? `&ipAddress=${ipToSearch}` : ""
-    }`,
-  );
-
+  const { data, loading, error, setIpToSearch } = useIpContext();
   function handleSubmit(e) {
     e.preventDefault();
-     const trimmedInput = searchData.trim();
+    const trimmedInput = searchData.trim();
     const { errors, isValid } = useValidate(trimmedInput);
     setValidationError(errors);
-    if (!isValid) return;
+    if (!isValid) return; // prevent empty search
     setIpToSearch(trimmedInput);
-    setSearchData("");
     setValidationError("");
-
-
+    setSearchData("");
   }
   return (
     <>
+      {/* Search Section */}
       <form
         onSubmit={handleSubmit}
-        className="h-80 bg-cover z-0"
-        style={{ backgroundImage: `url(${bgImage})` }}
+        className="bg-cover bg-center h-90 md:h-70 z-0"
+        style={{
+          backgroundImage:
+            window.innerWidth >= 768 ? `url(${bgDesktop})` : `url(${bgMobile})`,
+        }}
       >
-        <h1 className="text-4xl  font-bold mb-4 text-center text-white pt-15 ">
+        <h1 className="text-center text-3xl  md:text-4xl p-8 text-white font-semibold">
           IP Address Tracker
         </h1>
-        <div className="flex justify-center mt-10">
+        <div className="flex justify-center px-4">
+          <label htmlFor="searchIp" className="sr-only">
+            Search IP Address
+          </label>
           <input
+            className=" w-full max-w-md bg-white rounded-l-2xl px-4 py-3"
             type="search"
-            placeholder="Search for any IP address"
-            className="p-3 w-80 rounded-l-lg outline-none border bg-white"
+            id="searchIp"
             value={searchData}
+            placeholder="Search for any IP address or domain"
             onChange={(e) => {
               setSearchData(e.target.value);
               setValidationError("");
             }}
           />
-
           <button
             type="submit"
-            className="bg-black hover:bg-gray-800 px-5 flex items-center justify-center rounded-r-lg"
+            className=" px-5 bg-black rounded-r-2xl flex items-center justify-center "
           >
-            <img src={arrowIcon} alt="arrow icon" className="w-5 h-5" />
+            <img src={arrowIcon} alt="Arrow Icon" />
           </button>
         </div>
         {validationError && (
-          <p className="text-red-500 text-center mt-2">{validationError}</p>
+          <p className="text-red-500 text-center mt-2 ">{validationError}</p>
         )}
       </form>
       {/* Display IP Data */}
@@ -68,10 +66,9 @@ function SearchIpAddress() {
       {error && (
         <p className="text-center mt-4 text-red-500">Error fetching IP data.</p>
       )}
-      {data && <DisplayIpAddress data={data} />}
-      {data && <MyMap data={data} />}
+      {data && <DisplayIpAddress />}
+      {data && <MyMap />}
     </>
   );
 }
-
 export default SearchIpAddress;
