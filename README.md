@@ -7,12 +7,11 @@ The project was built using **React** and demonstrates API integration, reusable
 
 ## Live Demo
 Add your deployed link here:  
-https://your-live-demo-link.com
+https://ip-address-tracker-react-mithra.netlify.app/
 
 ## GitHub Repository
-Add your repository link here:  
-https://github.com/yourusername/ip-address-tracker
 
+https://github.com/Mith29/react-project-ip-address-tracker
 ---
 
 ## Features
