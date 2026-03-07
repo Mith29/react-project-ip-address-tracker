@@ -1,61 +1,170 @@
-                      IP Address Tracker
+# IP Address Tracker (React)
 
-The IP Address Tracker is a responsive React application that allows users to search for any IP address and view its geographic location and related details. The application integrates the IP Geolocation API by IPify to retrieve real-time information such as the IP address, location (city and country), timezone, and ISP. The retrieved location data is then displayed visually on an interactive map using LeafletJS. Users can enter an IP address in the search bar, and the application dynamically updates the displayed information and map location based on the search results. The project uses reusable components, custom hooks, API integration, responsive design with Tailwind CSS, and interactive UI elements.
+## Overview
+The IP Address Tracker is a responsive web application that allows users to search for an IP address and view its geographic location and network information. The application uses the **IP Geolocation API by IPify** to retrieve IP data and **LeafletJS** to display the location on an interactive map.
 
-### Features
+The project was built using **React** and demonstrates API integration, reusable components, custom hooks, and responsive design.
 
-* Search and track any IP address
+## Live Demo
+Add your deployed link here:  
+https://your-live-demo-link.com
 
-* Display IP address details
+## GitHub Repository
+Add your repository link here:  
+https://github.com/yourusername/ip-address-tracker
 
-* Show location on an interactive map
+---
 
-* Responsive design 
+## Features
+- Search for any **IPv4 or IPv6 address**
+- Display IP address information including:
+  - IP Address
+  - Location (City, Region, Postal Code)
+  - Timezone
+  - Internet Service Provider (ISP)
+- Interactive **map displaying the IP location**
+- **Responsive design** for desktop and mobile devices
+- **Form validation** for valid IP addresses
+- **Dynamic API data fetching**
+- Clean UI styled with **Tailwind CSS**
 
-* Form validation for correct IP format
+---
 
-* Dynamic API data fetching
+## Technologies Used
 
-* Accessible UI elements
+- **React**
+- **React Hooks**
+- **Context API**
+- **Tailwind CSS**
+- **LeafletJS**
+- **React Leaflet**
+- **IPify Geolocation API**
+- **JavaScript (ES6+)**
+- **HTML5 & CSS3**
 
+---
 
-### Project Structure
-```
+## Project Structure
+````
 src
- ┣ components
- ┃ ┣ SearchIpAddress.jsx
- ┃ ┣ DisplayIpAddress.jsx
- ┃ ┗ MyMap.jsx
- ┣ hooks
- ┃ ┣ useFetch.js
- ┃ ┗ useValidate.js
- ┣ App.jsx
- ┣ main.jsx
+│
+├── components
+│ ├── SearchIpAddress.jsx
+│ ├── DisplayIpAddress.jsx
+│ └── MyMap.jsx
+│
+├── hooks
+│ ├── useFetch.js
+│ └── useValidate.js
+│
+├── context
+│ └── IpContext.jsx
+│
+├── assets
+│ └── images
+│
+└── App.jsx
 
- ```
+````
 
-### Installation
+---
 
-* Clone the repository:
+## Key Components
 
-      git clone https://github.com/yourusername/ip-address-tracker.git
+### SearchIpAddress
+Handles the search form, input validation, and triggers API calls using context.
 
-* Install dependencies
+### DisplayIpAddress
+Displays the fetched IP information including location, timezone, and ISP.
 
-      npm install
+### MyMap
+Renders the interactive map using **LeafletJS** and places a marker based on the IP coordinates.
 
-* Run the project
+---
 
-      npm run dev
+## Custom Hooks
+
+### useFetch
+A reusable hook that handles:
+- API requests
+- Loading state
+- Error handling
+- Cleanup using AbortController
+
+### useValidate
+Validates the user input to ensure the IP address format is correct (IPv4 or IPv6).
+
+---
+
+## Context API
+
+### IpContext
+The Context API is used to manage global state for:
+- API response data
+- Loading and error states
+- IP address search value
+
+This allows components to access shared data without prop drilling.
+
+---
+
+## Installation
+
+1. Clone the repository
+* git clone :
+
+ https://github.com/yourusername/ip-address-tracker.git
 
 
-### API Setup
-
-Create a .env file in the project root and add your API key:
-
-     VITE_API_KEY= your_ipify_api_key
-
-You can get the API key from the IPify Geolocation API website.
+2. Navigate to the project folder
 
 
-The user enters an IP address in the search bar, and the application first validates the input using a custom useValidate hook to ensure the IP format is correct. Once the input is validated, the useFetch hook sends a request to the IPify Geolocation API to retrieve the corresponding location data. The returned information, including the IP address, location, timezone, and ISP, is then displayed in the DisplayIpAddress component. At the same time, the MyMap component uses the latitude and longitude from the API response to dynamically update the map and show the exact location using LeafletJS.
+       cd ip-address-tracker
+
+
+3. Install dependencies
+
+
+        npm install
+
+
+4. Create a `.env` file and add your API key
+
+
+       VITE_API_KEY=your_ipify_api_key
+
+
+5. Run the development server
+
+
+          npm run dev
+
+
+---
+
+## Deployment
+
+The application can be deployed using:
+
+- **Netlify**
+
+ Add the env variable in Netlify
+
+       npm run build
+
+And deploy the project from the gitHub repo.
+
+
+
+
+
+## Project Reflection
+
+This project helped me practice building a real-world React application. The goal was to create an IP Address Tracker that shows the location and network information of an IP address using the IPify API and LeafletJS map.
+
+I built the project using different React components like SearchIpAddress, DisplayIpAddress, and MyMap. I also created custom hooks such as useFetch for API requests and useValidate for input validation.
+
+The most challenging part of the project was implementing the Context API. I needed to understand how to create a context, provide the data using a provider, and access it in different components using a custom hook. This allowed multiple components to use the same API data without passing props between many components.
+
+In the future, I would like to improve the project by adding better error messages, search history, and smoother map updates.
+
